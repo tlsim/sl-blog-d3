@@ -1,0 +1,42 @@
+html * {
+    box-sizing: border-box;
+}
+
+#chart {
+    width: 680px;
+    margin: 30px;
+}
+
+.chart {
+    border: 1px solid black;
+    padding: 10px;
+}
+.chart .axis text {
+    font: 10px sans-serif;
+}
+
+.chart .axis .domain,
+.chart .axis .tick line {
+    fill: none;
+    stroke: black;
+}
+
+.chart .bar path {
+    stroke-width: 1.5;
+}
+
+.chart .bar.up-day path {
+    stroke: green;
+}
+
+.chart .bar.down-day path {
+    stroke: red;
+}
+
+.chart .bar.up-day rect {
+    fill: green;
+}
+
+.chart .bar.down-day rect {
+    fill: red;
+}

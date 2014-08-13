@@ -4,13 +4,8 @@ html * {
 
 #chart {
     width: 680px;
-    margin: 30px;
 }
 
-.chart {
-    border: 1px solid black;
-    padding: 10px;
-}
 .chart .axis text {
     font: 10px sans-serif;
 }

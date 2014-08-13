@@ -12,7 +12,7 @@ define([
 
     var data = mockData.generateOHLC(new Date(2014, 6, 1), new Date(2014, 8, 1));
 
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    var margin = {top: 20, right: 20, bottom: 30, left: 35},
         width = 660 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 

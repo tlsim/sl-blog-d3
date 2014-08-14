@@ -39,7 +39,6 @@ define([
 
     // Ceate chart
     var g = svg.append('g')
-        .attr('class', 'chart')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     var plotArea = g.append('g');

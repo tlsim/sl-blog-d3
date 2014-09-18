@@ -3,6 +3,9 @@ define(function () {
 
     return {
         version: '0.0.0',
-        series: {}
+        series: {},
+        svg: {},
+        example: {},
+        utils: {}
     };
 });

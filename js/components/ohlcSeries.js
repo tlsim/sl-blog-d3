@@ -16,6 +16,8 @@ define ([
             return !isUpDay(d);
         };
 
+        var tickWidth = 5;
+
         var line = d3.svg.line()
             .x(function (d) {
                 return d.x;
@@ -43,8 +45,7 @@ define ([
 
         var openCloseTicks = function (bars) {
             var open,
-                close,
-                tickWidth = 5;
+                close;
 
             open = bars.selectAll('.open-tick').data(function (d) {
                 return [d];
@@ -81,7 +82,10 @@ define ([
             var series, bars;
 
             selection.each(function (data) {
-                series = d3.select(this);
+                // series = d3.select(this);
+
+                series = d3.select(this).selectAll('.ohlc-series').data([data]);
+                series.enter().append('g').classed('ohlc-series', true);
 
                 bars = series.selectAll('.bar')
                     .data(data, function (d) {
@@ -118,6 +122,14 @@ define ([
                 return yScale;
             }
             yScale = value;
+            return ohlc;
+        };
+
+        ohlc.tickWidth = function (value) {
+            if (!arguments.length) {
+                return tickWidth;
+            }
+            tickWidth = value;
             return ohlc;
         };
 

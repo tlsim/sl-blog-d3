@@ -9,6 +9,8 @@ define ([
         var xScale = d3.time.scale(),
             yScale = d3.scale.linear();
 
+        var rectangleWidth = 5;
+
         var isUpDay = function(d) {
             return d.close > d.open;
         };
@@ -42,8 +44,7 @@ define ([
         };
 
         var rectangles = function (bars) {
-            var rect,
-                rectangleWidth = 5;
+            var rect;
 
             rect = bars.selectAll('rect').data(function (d) {
                 return [d];
@@ -63,15 +64,16 @@ define ([
                         yScale(d.open) - yScale(d.close) :
                         yScale(d.close) - yScale(d.open);
                 });
-
-            rect.exit().remove();
         };
 
         var candlestick = function (selection) {
             var series, bars;
 
             selection.each(function (data) {
-                series = d3.select(this);
+                series = d3.select(this).selectAll('.candlestick-series').data([data]);
+
+                series.enter().append('g')
+                    .classed('candlestick-series', true);
 
                 bars = series.selectAll('.bar')
                     .data(data, function (d) {
@@ -109,6 +111,14 @@ define ([
                 return yScale;
             }
             yScale = value;
+            return candlestick;
+        };
+
+        candlestick.rectangleWidth = function (value) {
+            if (!arguments.length) {
+                return rectangleWidth;
+            }
+            rectangleWidth = value;
             return candlestick;
         };
 

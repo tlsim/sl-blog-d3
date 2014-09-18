@@ -3,7 +3,8 @@ html * {
 }
 
 #chart {
-    width: 680px;
+    width: 1280px;
+    position: relative;
 }
 
 .chart .axis text {
@@ -14,18 +15,32 @@ html * {
 .chart .axis .tick line {
     fill: none;
     stroke: black;
+    shape-rendering: crispEdges;
 }
-
-.chart .bar path {
+ 
+.chart .ohlc-series path {
+    vector-effect: non-scaling-stroke;
     stroke-width: 1.5;
 }
 
-.chart .bar.up-day path {
+.chart .ohlc-series .up-days {
     stroke: green;
 }
 
-.chart .bar.down-day path {
+.chart .ohlc-series .down-days {
     stroke: red;
+}
+
+.chart .ohlc-series .bar.up-day {
+    stroke: green;
+}
+
+.chart .ohlc-series .bar.down-day {
+    stroke: red;
+}
+
+.chart .candlestick-series .bar path {
+    stroke: black;
 }
 
 .chart .bar.up-day rect {
@@ -34,4 +49,11 @@ html * {
 
 .chart .bar.down-day rect {
     fill: red;
+}
+
+.chart .zoom-pane {
+    fill: none;
+    pointer-events: all;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
 }

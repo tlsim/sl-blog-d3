@@ -133,5 +133,4 @@ define([
         }
     }
 
-    return zoomChart;
 });

@@ -80,5 +80,4 @@ define([
     function zoomend() {
     }
 
-    return zoomChart;
 });

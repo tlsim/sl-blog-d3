@@ -8,10 +8,6 @@ define([
     sl.example.zoomChart = function (zoom, data, series, xScale, yScale, xAxis, yAxis, fromDate, toDate) {
 
         var initialScale = d3.scale.linear();
-        var zoomMethod = 'redraw';
-
-        var translate = 0,
-            scale = 1;
 
         var zoomChart = function () {
             var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -83,89 +79,11 @@ define([
                 .datum(data)
                 .call(series);
 
-            // Return initial scale.
             initialScale = yScale.copy();
         };
 
         zoomChart.initialScale = function () {
             return initialScale;
-        };
-
-        zoomChart.cssTransform = function () {
-            var g = d3.selectAll('svg').select('g');
-
-            //translate += ((Math.random() * 2) - 1) * 50;
-            // scale += ((Math.random() * 2) - 1) / 20;
-
-            g.select('.series')
-                .datum(data)
-                .attr('transform', 'translate(' + translate + ',0) scale(' + scale + ',1)');
-        };
-
-        zoomChart.redraw = function () {
-            var xDomain;
-            var g = d3.selectAll('svg').select('g');
-
-            xScale.domain(d3.extent(data, function (d) {
-                return d.date;
-            }));
-            yScale.domain(
-                [
-                    d3.min(data, function (d) {
-                        return d.low;
-                    }),
-                    d3.max(data, function (d) {
-                        return d.high;
-                    })
-                ]
-            );
-
-            xDomain = xScale.domain();
-            series.tickWidth(tickWidth(xScale, xDomain[0], xDomain[1]));
-            initialScale = yScale.copy();
-
-            g.select('.x.axis')
-                .call(xAxis);
-
-            g.select('.y.axis')
-                .call(yAxis);
-
-            g.selectAll('.series')
-                .datum(data)
-                .call(series);
-        };
-
-        zoomChart.data = function (value) {
-            if (!arguments.length) {
-                return data;
-            }
-            data = value;
-            return zoomChart;
-        };
-
-        zoomChart.zoomMethod = function (value) {
-            if (!arguments.length) {
-                return data;
-            }
-            zoomMethod = value;
-            return zoomMethod;
-        };
-
-        zoomChart.zoom = function () {
-            switch(zoomMethod) {
-                case "redraw":
-                    zoomChart.redraw();
-                    break;
-                case "cssTransform": {
-                    zoomChart.cssTransform();
-                    break;
-                }
-            }
-        };
-
-        zoomChart.resetTransform = function () {
-            translate = 0;
-            scale = 1;
         };
 
         return zoomChart;

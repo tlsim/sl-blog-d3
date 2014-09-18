@@ -42,7 +42,6 @@ define([
         .on('zoom', zoomed)
         .on('zoomend', zoomend);
 
-
     var zoomChart = sl.example.zoomChart(zoom, data, series, xScale, yScale, xAxis, yAxis, fromDate, toDate);
     zoomChart();
 
@@ -85,5 +84,4 @@ define([
     function zoomend() {
     }
 
-    return zoomChart;
 });

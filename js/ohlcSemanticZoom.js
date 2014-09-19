@@ -4,10 +4,8 @@ define([
     'MockData',
     'utils/tickWidth',
     'moment',
-    'moment-range',
-    'components/ohlcBarSeries',
-    'modernizr',
-    'examples/zoomChart'
+    'components/ohlcSeries',
+    'zoomChart'
 ], function (d3, sl, MockData, tickWidth, moment) {
     'use strict';
 
@@ -15,7 +13,7 @@ define([
         return !(moment.day() === 0 || moment.day() === 6);
     });
 
-    var fromDate = new Date(2011, 8, 1),
+    var fromDate = new Date(2013, 8, 1),
         toDate = new Date(2014, 8, 1);
 
     var data = mockData.generateOHLC(fromDate, toDate);
@@ -32,13 +30,13 @@ define([
         .scale(yScale)
         .orient('left');
 
-    var series = sl.series.ohlcBar()
+    var series = sl.series.ohlc()
         .xScale(xScale)
         .yScale(yScale);
 
     var zoom = d3.behavior.zoom()
         .x(xScale)
-        .scaleExtent([0.5, 500])
+        .scaleExtent([0.5, 50])
         .on('zoom', zoomed)
         .on('zoomend', zoomend);
 
@@ -56,7 +54,6 @@ define([
                 filteredData.push(data[i]);
             }
         }
-
         yScale.domain(
             [
                 d3.min(filteredData, function (d) {
@@ -77,7 +74,6 @@ define([
         series.tickWidth(tickWidth(xScale, xDomain[0], xDomain[1]));
 
         g.select('.series')
-            .datum(filteredData)
             .call(series);
     }
 

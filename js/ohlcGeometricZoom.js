@@ -7,7 +7,7 @@ define([
     'moment-range',
     'components/ohlcBarSeries',
     'modernizr',
-    'examples/zoomChart'
+    'zoomChart'
 ], function (d3, sl, MockData, tickWidth, moment) {
     'use strict';
 

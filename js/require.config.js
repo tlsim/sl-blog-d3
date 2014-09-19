@@ -2,7 +2,6 @@
 /* global require: true */
 
 var require = {
-    baseUrl: '/js',
     paths: {
         'd3': 'lib/d3',
         'jstat': 'lib/jstat',

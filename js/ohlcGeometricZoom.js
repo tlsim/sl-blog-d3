@@ -3,12 +3,13 @@ define([
     'components/sl',
     'MockData',
     'utils/tickWidth',
+    'utils/yScaleTransform',
     'moment',
     'moment-range',
     'components/ohlcBarSeries',
     'modernizr',
     'zoomChart'
-], function (d3, sl, MockData, tickWidth, moment) {
+], function (d3, sl, MockData, tickWidth, yScaleTransform, moment) {
     'use strict';
 
     var hasVectorEffect = Modernizr.testProp('vectorEffect');
@@ -53,12 +54,8 @@ define([
 
     function zoomed() {
 
-        var yDomain,
-            xDomain = xScale.domain(),
-            initialDomain = initialScale.domain();
-
-        var yTransformTranslate = 0,
-            yTransformScale,
+        var xDomain = xScale.domain(),
+            yTransform,
             xTransformTranslate = d3.event.translate[0],
             xTransformScale = d3.event.scale;
 
@@ -83,7 +80,7 @@ define([
             ]
         );
 
-        yDomain = yScale.domain();
+        yTransform = yScaleTransform(initialScale, yScale);
 
         g.select('.x.axis')
             .call(xAxis);
@@ -91,16 +88,9 @@ define([
         g.select('.y.axis')
             .call(yAxis);
 
-        yTransformScale = (initialDomain[1] - initialDomain[0]) / (yDomain[1] - yDomain[0]);
-
-        if (yDomain[1] !== initialDomain[1]) {
-            yTransformTranslate = initialScale.range()[1] - initialScale(yDomain[1]);
-            yTransformTranslate *= yTransformScale; // To screen pixel space.
-        }
-
         g.select('.series')
-            .attr('transform', 'translate(' + xTransformTranslate + ',' + yTransformTranslate + ')' +
-                ' scale(' + xTransformScale + ',' + yTransformScale + ')');
+            .attr('transform', 'translate(' + xTransformTranslate + ',' + yTransform.translate+ ')' +
+                ' scale(' + xTransformScale + ',' + yTransform.scale + ')');
 
     }
 
@@ -133,4 +123,5 @@ define([
         }
     }
 
+    return zoomChart;
 });

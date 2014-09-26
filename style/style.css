@@ -17,7 +17,13 @@ html * {
     stroke: black;
     shape-rendering: crispEdges;
 }
- 
+
+.chart .gridlines {
+    stroke: lightgrey;
+    shape-rendering: crispEdges;
+    stroke-width: 1;
+}
+
 .chart .ohlc-series path {
     vector-effect: non-scaling-stroke;
     stroke-width: 1.5;
@@ -41,6 +47,13 @@ html * {
 
 .chart .candlestick-series .bar path {
     stroke: black;
+}
+
+.chart .comparison-series .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+    vector-effect: non-scaling-stroke;
 }
 
 .chart .bar.up-day rect {

@@ -96,25 +96,25 @@ define([
         // Reset zoom.
         zoom.x(xScale);
 
-        // Draw axes
-        g.append('g')
-            .attr('class', 'x axis')
-            .attr('transform', 'translate(0,' + height + ')')
-            .call(xAxis);
-
-        // Draw gridlines
-        plotArea
-            .call(gridlines);
-
         // Draw series.
         plotArea.append('g')
             .attr('class', 'series')
             .datum(data)
             .call(series);
 
+        // Draw axes
+        g.append('g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0,' + height + ')')
+            .call(xAxis);
+
         g.append('g')
             .attr('class', 'y axis')
             .call(yAxis);
+
+        // Draw gridlines
+        plotArea
+            .call(gridlines);
 
         function zoomed() {
 
